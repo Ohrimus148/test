@@ -62,8 +62,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
-    {
+    protected function create(array $data) {
         $fileName = 'null';
         if (Input::hasFile('photo')) {
             $destinationPath = public_path('uploads/files');
@@ -71,7 +70,7 @@ class RegisterController extends Controller
             $fileName = uniqid().'.'.$extension;
             Input::file('photo')->move($destinationPath, $fileName);
         }
-       $managers = User::create([
+      return  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
@@ -79,6 +78,6 @@ class RegisterController extends Controller
             'photo'=>  $fileName,
             'password' => bcrypt($data['password']),
         ]);
-   // return view('home',compact("managers"));
+//    return view('home',compact("managers"));
     }
 }
