@@ -24,7 +24,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($managers as $manager)
+                            @forelse($managers as $manager)
                             <tr>
                                 <th scope="row">{{$manager->id}}</th>
                                 <td>{{$manager->name}}</td>
@@ -33,7 +33,11 @@
                                 <td>{{$manager->company}}</td>
                                 <td><img src="/uploads/files/{{$manager->photo}}"  height="100" width="100" /></td>
                             </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="12" class="text-center">No Managers Yet</td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                 </div>

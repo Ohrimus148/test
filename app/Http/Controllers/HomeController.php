@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Projects;
 
 class HomeController extends Controller
 {
@@ -22,9 +23,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $managers = User::all();
-         return view('home', compact("managers"));
+        return view('manager', compact("managers"));
+    }
+
+    public function projects() {
+        $projects = Projects::all();
+        return view('projects', compact("projects"));
     }
 }
