@@ -70,7 +70,7 @@
                             <label for="" class="col-md-4 control-label">Photo manager</label>
 
                             <div class="col-md-6">
-                                <input id="photoManager" type="file" class="form-control" name="photoManager">                                
+                                <input id="photoManager" type="file" class="form-control" name="photo">
                             </div>
                         </div>
 						

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -61,29 +62,23 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(Request $request)
+    protected function create(array $data)
     {
-        dd($request);
-        if($request->has_file('photo')){
-                if($request->file('photo')->isValid()) {
-            try {
-                $file = $request->file('input_img');
-                $namePhate = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
-
-                $request->file('photo')->move("fotoupload", $name);
-            } catch (Illuminate\Filesystem\FileNotFoundException $e) {
-
-            }
+        $fileName = 'null';
+        if (Input::hasFile('photo')) {
+            $destinationPath = public_path('uploads/files');
+            $extension = Input::file('photo')->getClientOriginalExtension();
+            $fileName = uniqid().'.'.$extension;
+            Input::file('photo')->move($destinationPath, $fileName);
         }
-        }
-
-        return User::create([
+       $managers = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'company' => $data['companyName'],
-            'photo'=> $namePhate,
+            'photo'=>  $fileName,
             'password' => bcrypt($data['password']),
         ]);
+   // return view('home',compact("managers"));
     }
 }
